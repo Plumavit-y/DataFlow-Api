@@ -1,6 +1,17 @@
+/**
+ * @file Health-check controller.
+ * @module controllers/healthController
+ */
+
 const { store } = require('../data/store');
 const { logEvent } = require('../data/activityLog');
 
+/**
+ * Returns a health-check snapshot including server uptime and the current
+ * count of users, products, and orders held in the in-memory store.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const getHealth = (req, res) => {
   logEvent({
     type: 'api.health',

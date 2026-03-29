@@ -1,8 +1,21 @@
+/**
+ * @file Order management controller – create, list, and retrieve orders.
+ * @module controllers/orderController
+ */
+
 const ApiError = require('../utils/errors');
 const { store, getNextOrderId } = require('../data/store');
 const { validateOrderPayload } = require('../utils/validators');
 const { logEvent } = require('../data/activityLog');
 
+/**
+ * Creates a new order for the authenticated user.
+ *
+ * Validates the items array, checks product availability, deducts stock, and
+ * persists the order. Returns the created order with a computed total.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const createOrder = (req, res, next) => {
   const validation = validateOrderPayload(req.body.items);
   if (!validation.valid) {
@@ -59,6 +72,11 @@ const createOrder = (req, res, next) => {
   });
 };
 
+/**
+ * Lists all orders belonging to the authenticated user.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const listOrders = (req, res) => {
   const userOrders = store.orders.filter((o) => o.userId === req.user.id);
 
@@ -74,6 +92,13 @@ const listOrders = (req, res) => {
   });
 };
 
+/**
+ * Returns the details of a single order owned by the authenticated user.
+ *
+ * Returns `404` if the order does not exist or belongs to a different user.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const getOrder = (req, res, next) => {
   const order = store.orders.find(
     (o) => o.id === Number(req.params.id) && o.userId === req.user.id

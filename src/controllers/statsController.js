@@ -1,6 +1,22 @@
+/**
+ * @file Statistics controller – per-user order metrics.
+ * @module controllers/statsController
+ */
+
 const { store } = require('../data/store');
 const { logEvent } = require('../data/activityLog');
 
+/**
+ * Returns spending and order statistics for the authenticated user.
+ *
+ * The response includes:
+ * - `totalSpent` – sum of all order totals (2 decimal places)
+ * - `totalOrders` – total number of orders placed
+ * - `avgOrderValue` – average value per order (2 decimal places)
+ * - `recentOrders` – the five most recent orders in reverse-chronological order
+ *
+ * @type {import('express').RequestHandler}
+ */
 const getStats = (req, res) => {
   const userOrders = store.orders.filter((order) => order.userId === req.user.id);
   const totalSpent = userOrders.reduce((sum, order) => sum + order.total, 0);

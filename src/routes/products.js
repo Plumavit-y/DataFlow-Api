@@ -15,47 +15,104 @@ const router = express.Router();
  * @swagger
  * tags:
  *   name: Products
- *   description: Catálogo de productos y gestión (Admin)
+ *   description: Product catalogue management
  */
 
 /**
  * @swagger
  * /api/products:
  *   get:
- *     summary: Listar todos los productos
+ *     summary: List all products
  *     tags: [Products]
  *     parameters:
  *       - in: query
  *         name: category
  *         schema:
  *           type: string
+ *         description: Filter by category (case-insensitive)
+ *         example: Electronics
  *       - in: query
  *         name: minPrice
  *         schema:
  *           type: number
+ *         description: Minimum price filter
+ *         example: 50
+ *       - in: query
+ *         name: maxPrice
+ *         schema:
+ *           type: number
+ *         description: Maximum price filter
+ *         example: 200
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Substring search across product name and category
+ *         example: watch
  *     responses:
  *       200:
- *         description: Lista de productos
+ *         description: Filtered list of products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 count:
+ *                   type: integer
+ *                 products:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Product'
  */
 router.get('/', optionalAuth, asyncHandler(listProducts));
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           example: 1
+ *         name:
+ *           type: string
+ *           example: Wireless Headphones
+ *         price:
+ *           type: number
+ *           format: float
+ *           example: 129.99
+ *         category:
+ *           type: string
+ *           example: Electronics
+ *         stock:
+ *           type: integer
+ *           example: 50
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *
  * /api/products/{id}:
  *   get:
- *     summary: Obtener detalle de un producto
+ *     summary: Get a product by ID
  *     tags: [Products]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
+ *         description: Numeric product ID
  *     responses:
  *       200:
- *         description: Detalles del producto
+ *         description: Product details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
  *       404:
- *         description: Producto no encontrado
+ *         description: Product not found
  */
 router.get('/:id', asyncHandler(getProduct));
 
@@ -63,7 +120,7 @@ router.get('/:id', asyncHandler(getProduct));
  * @swagger
  * /api/products:
  *   post:
- *     summary: Crear un nuevo producto (Admin)
+ *     summary: Create a new product (admin only)
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
@@ -80,17 +137,35 @@ router.get('/:id', asyncHandler(getProduct));
  *             properties:
  *               name:
  *                 type: string
+ *                 example: Mechanical Keyboard
  *               price:
  *                 type: number
+ *                 example: 149.99
  *               category:
  *                 type: string
+ *                 example: Electronics
  *               stock:
- *                 type: number
+ *                 type: integer
+ *                 default: 0
+ *                 example: 25
  *     responses:
  *       201:
- *         description: Producto creado
+ *         description: Product created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 product:
+ *                   $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Invalid payload
+ *       401:
+ *         description: Authentication token required
  *       403:
- *         description: Prohibido - Solo administradores
+ *         description: Admin role required
  */
 router.post('/', authenticateToken, asyncHandler(createProduct));
 
@@ -98,7 +173,7 @@ router.post('/', authenticateToken, asyncHandler(createProduct));
  * @swagger
  * /api/products/{id}:
  *   put:
- *     summary: Actualizar un producto (Admin)
+ *     summary: Update a product (admin only)
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
@@ -107,7 +182,8 @@ router.post('/', authenticateToken, asyncHandler(createProduct));
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
+ *         description: Numeric product ID
  *     requestBody:
  *       content:
  *         application/json:
@@ -121,10 +197,27 @@ router.post('/', authenticateToken, asyncHandler(createProduct));
  *               category:
  *                 type: string
  *               stock:
- *                 type: number
+ *                 type: integer
  *     responses:
  *       200:
- *         description: Producto actualizado
+ *         description: Product updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 product:
+ *                   $ref: '#/components/schemas/Product'
+ *       400:
+ *         description: Invalid field value
+ *       401:
+ *         description: Authentication token required
+ *       403:
+ *         description: Admin role required
+ *       404:
+ *         description: Product not found
  */
 router.put('/:id', authenticateToken, asyncHandler(updateProduct));
 
@@ -132,7 +225,7 @@ router.put('/:id', authenticateToken, asyncHandler(updateProduct));
  * @swagger
  * /api/products/{id}:
  *   delete:
- *     summary: Eliminar un producto (Admin)
+ *     summary: Delete a product (admin only)
  *     tags: [Products]
  *     security:
  *       - bearerAuth: []
@@ -141,10 +234,26 @@ router.put('/:id', authenticateToken, asyncHandler(updateProduct));
  *         name: id
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
+ *         description: Numeric product ID
  *     responses:
- *       204:
- *         description: Producto eliminado
+ *       200:
+ *         description: Product deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 product:
+ *                   $ref: '#/components/schemas/Product'
+ *       401:
+ *         description: Authentication token required
+ *       403:
+ *         description: Admin role required
+ *       404:
+ *         description: Product not found
  */
 router.delete('/:id', authenticateToken, asyncHandler(deleteProduct));
 

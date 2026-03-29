@@ -1,3 +1,11 @@
+/**
+ * @file Server entry point.
+ *
+ * Starts the HTTP server on the configured port and prints a startup summary
+ * to the console. Import `src/app.js` directly in tests to avoid binding a
+ * port during test runs.
+ */
+
 const app = require('./src/app');
 
 const PORT = process.env.PORT || 3000;
