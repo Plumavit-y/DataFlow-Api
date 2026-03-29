@@ -1,3 +1,14 @@
+/**
+ * @file Static endpoint catalogue used by the legacy `/api/docs` route.
+ *
+ * Provides a human-readable description of every public endpoint grouped by
+ * functional category. This data is serialised to JSON and returned as-is;
+ * it is separate from the Swagger/OpenAPI spec generated from JSDoc annotations
+ * in the route files.
+ *
+ * @module data/docs
+ */
+
 const endpoints = [
   {
     category: 'Authentication',

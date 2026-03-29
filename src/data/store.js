@@ -1,3 +1,13 @@
+/**
+ * @file In-memory data store and seed helpers.
+ *
+ * Provides the shared `store` object that acts as the application's runtime
+ * database, together with helper functions to generate sequential IDs and to
+ * reset the store to its initial seed state (primarily used in tests).
+ *
+ * @module data/store
+ */
+
 const bcrypt = require('bcryptjs');
 
 const createInitialProducts = () => [
@@ -36,6 +46,11 @@ const createDefaultAdmin = () => ({
   createdAt: new Date().toISOString()
 });
 
+/**
+ * Shared in-memory store for users, products, and orders.
+ *
+ * @type {{ users: object[], products: object[], orders: object[], nextUserId: number, nextOrderId: number }}
+ */
 const store = {
   users: [],
   products: [],
@@ -44,6 +59,13 @@ const store = {
   nextOrderId: 1
 };
 
+/**
+ * Resets the store to its initial seed state.
+ *
+ * Populates `store.users` with the default admin account, `store.products`
+ * with the three seed products, clears all orders, and resets the ID
+ * counters. Called automatically on module load and before each test.
+ */
 const resetStore = () => {
   store.users = [createDefaultAdmin()];
   store.products = createInitialProducts();
@@ -54,7 +76,18 @@ const resetStore = () => {
 
 resetStore();
 
+/**
+ * Returns the next available user ID and increments the counter.
+ *
+ * @returns {number} Next user ID.
+ */
 const getNextUserId = () => store.nextUserId++;
+
+/**
+ * Returns the next available order ID and increments the counter.
+ *
+ * @returns {number} Next order ID.
+ */
 const getNextOrderId = () => store.nextOrderId++;
 
 module.exports = {

@@ -7,18 +7,41 @@ const router = express.Router();
  * @swagger
  * tags:
  *   name: System
- *   description: Monitoreo y estado del servidor
+ *   description: Server health monitoring and activity feed
  */
 
 /**
  * @swagger
  * /api/health:
  *   get:
- *     summary: Estado de salud de la API
+ *     summary: Health check – verify the API is operational
  *     tags: [System]
  *     responses:
  *       200:
- *         description: El servidor está operativo
+ *         description: API is healthy
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: healthy
+ *                 timestamp:
+ *                   type: string
+ *                   format: date-time
+ *                 uptime:
+ *                   type: number
+ *                   description: Process uptime in seconds
+ *                 database:
+ *                   type: object
+ *                   properties:
+ *                     users:
+ *                       type: integer
+ *                     products:
+ *                       type: integer
+ *                     orders:
+ *                       type: integer
  */
 router.get('/', getHealth);
 

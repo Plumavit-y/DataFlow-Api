@@ -1,8 +1,23 @@
+/**
+ * @file Product catalogue controller – list, get, create, update, and delete products.
+ * @module controllers/productController
+ */
+
 const ApiError = require('../utils/errors');
 const { store } = require('../data/store');
 const { validateProductPayload } = require('../utils/validators');
 const { logEvent } = require('../data/activityLog');
 
+/**
+ * Lists products with optional filtering.
+ *
+ * Supports the following query parameters:
+ * - `category` – case-insensitive category match
+ * - `minPrice` / `maxPrice` – numeric price range filter
+ * - `search` – substring match against name and category
+ *
+ * @type {import('express').RequestHandler}
+ */
 const listProducts = (req, res) => {
   let products = [...store.products];
   const { category, minPrice, maxPrice, search } = req.query;
@@ -48,6 +63,11 @@ const listProducts = (req, res) => {
   });
 };
 
+/**
+ * Returns a single product by its numeric ID.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const getProduct = (req, res, next) => {
   const product = store.products.find((p) => p.id === Number(req.params.id));
 
@@ -64,6 +84,11 @@ const getProduct = (req, res, next) => {
   res.json(product);
 };
 
+/**
+ * Creates a new product. Restricted to users with the `admin` role.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const createProduct = (req, res, next) => {
   if (!req.user || req.user.role !== 'admin') {
     return next(new ApiError('Admin role required', 403));
@@ -100,6 +125,12 @@ const createProduct = (req, res, next) => {
   });
 };
 
+/**
+ * Updates one or more fields of an existing product.
+ * Restricted to users with the `admin` role.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const updateProduct = (req, res, next) => {
   if (!req.user || req.user.role !== 'admin') {
     return next(new ApiError('Admin role required', 403));
@@ -151,6 +182,12 @@ const updateProduct = (req, res, next) => {
   });
 };
 
+/**
+ * Permanently removes a product from the catalogue.
+ * Restricted to users with the `admin` role.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const deleteProduct = (req, res, next) => {
   if (!req.user || req.user.role !== 'admin') {
     return next(new ApiError('Admin role required', 403));

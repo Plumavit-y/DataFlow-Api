@@ -1,3 +1,8 @@
+/**
+ * @file Authentication controller – register, login, and profile endpoints.
+ * @module controllers/authController
+ */
+
 const bcrypt = require('bcryptjs');
 const { store, getNextUserId } = require('../data/store');
 const ApiError = require('../utils/errors');
@@ -5,6 +10,15 @@ const { validateEmail, validatePassword } = require('../utils/validators');
 const { createToken } = require('../utils/token');
 const { logEvent } = require('../data/activityLog');
 
+/**
+ * Registers a new user account.
+ *
+ * Validates the request body, hashes the password, persists the user to the
+ * in-memory store, and returns a signed JWT token together with the new user's
+ * public profile.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const register = async (req, res, next) => {
   const { email, password, name } = req.body;
 
@@ -53,6 +67,14 @@ const register = async (req, res, next) => {
   });
 };
 
+/**
+ * Authenticates a user with email and password.
+ *
+ * Verifies the provided credentials against the stored bcrypt hash and, on
+ * success, returns a signed JWT token together with the user's public profile.
+ *
+ * @type {import('express').RequestHandler}
+ */
 const login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -85,6 +107,14 @@ const login = async (req, res, next) => {
   });
 };
 
+/**
+ * Returns the profile of the currently authenticated user.
+ *
+ * Requires a valid JWT token (attached to `req.user` by
+ * {@link module:middleware/auth~authenticateToken}).
+ *
+ * @type {import('express').RequestHandler}
+ */
 const me = (req, res, next) => {
   const user = store.users.find((u) => u.id === req.user.id);
   if (!user) {

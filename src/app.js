@@ -1,3 +1,14 @@
+/**
+ * @file Express application factory.
+ *
+ * Configures and exports the Express `app` instance with all middleware,
+ * Swagger documentation, static file serving, and route registrations.
+ * The server entry point (`server.js`) imports this module and binds it to
+ * a port.
+ *
+ * @module app
+ */
+
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
