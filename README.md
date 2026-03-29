@@ -34,12 +34,15 @@
 
 ## 🚀 Instalación y Uso
 
-1. **Clonar y Preparar:**
+1. **Clona el repositorio:**
    ```bash
+   git clone https://github.com/Plumavit-y/DataFlow-Api.git
+   cd DataFlow-Api
+   cp .env.example .env # Configura tus variables
    npm install
    ```
 
-2. **Ejecutar en Desarrollo:**
+2. **Ejecuta en desarrollo:**
    ```bash
    npm run dev
    ```
@@ -54,6 +57,11 @@
    ```
    *Este comando genera eventos automáticos para ver el dashboard en acción.*
 
+5. **Ejecutar tests:**
+   ```bash
+   npm test
+   ```
+
 ---
 
 ## 📂 Estructura del Proyecto
@@ -66,7 +74,11 @@
 │   ├── middleware/      # Auth, Error Handler, Security
 │   ├── routes/          # Definición de endpoints + Swagger JSDoc
 │   └── utils/           # Validadores y helpers
-└── __tests__/           # Pruebas de integración
+├── __tests__/           # Pruebas de integración
+├── docs/                # Documentación extendida (API, arquitectura, ejemplos, testing, deployment, FAQ)
+├── .env.example         # Variables de entorno de ejemplo
+├── LICENSE              # Licencia MIT
+├── CONTRIBUTING.md      # Guía para contribuir
 ```
 
 ---
@@ -77,6 +89,18 @@
 | --- | --- | --- |
 | **Admin** | `admin@portfolio.dev` | `Admin123!` |
 | **User** | `user@portfolio.dev` | `User123!` |
+
+---
+
+## 📚 Documentación Extendida
+
+- [API Reference](docs/api.md)
+- [Arquitectura](docs/architecture.md)
+- [Ejemplos de Uso](docs/usage-examples.md)
+- [Testing](docs/testing.md)
+- [Deployment](docs/deployment.md)
+- [FAQ](docs/faq.md)
+- [Guía Demo](docs/demo-walkthrough.md)
 
 ---
 
