@@ -39,12 +39,12 @@ const listProducts = (req, res) => {
   logEvent({
     type: 'products.list',
     summary: `Productos listados${req.user ? ` por ${req.user.email}` : ''}`,
-    details: { count: products.length }
+    details: { count: products.length },
   });
 
   res.json({
     count: products.length,
-    products
+    products,
   });
 };
 
@@ -58,7 +58,7 @@ const getProduct = (req, res, next) => {
   logEvent({
     type: 'products.get',
     summary: `Consulta del producto ${product.name}`,
-    details: { productId: product.id }
+    details: { productId: product.id },
   });
 
   res.json(product);
@@ -66,7 +66,7 @@ const getProduct = (req, res, next) => {
 
 const createProduct = (req, res, next) => {
   if (!req.user || req.user.role !== 'admin') {
-    return next(new ApiError('Admin role required', 403));
+    return next(new ApiError('Admin access required', 403));
   }
 
   const validation = validateProductPayload(req.body);
@@ -83,7 +83,7 @@ const createProduct = (req, res, next) => {
     price: validation.parsedPrice,
     category,
     stock: stockQuantity,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
 
   store.products.push(product);
@@ -91,18 +91,18 @@ const createProduct = (req, res, next) => {
   logEvent({
     type: 'products.create',
     summary: `Producto creado: ${name}`,
-    details: { productId: product.id, createdBy: req.user.email }
+    details: { productId: product.id, createdBy: req.user.email },
   });
 
   res.status(201).json({
     message: 'Product created successfully',
-    product
+    product,
   });
 };
 
 const updateProduct = (req, res, next) => {
   if (!req.user || req.user.role !== 'admin') {
-    return next(new ApiError('Admin role required', 403));
+    return next(new ApiError('Admin access required', 403));
   }
 
   const product = store.products.find((p) => p.id === Number(req.params.id));
@@ -142,18 +142,18 @@ const updateProduct = (req, res, next) => {
   logEvent({
     type: 'products.update',
     summary: `Producto actualizado: ${product.name}`,
-    details: { productId: product.id, updatedBy: req.user.email }
+    details: { productId: product.id, updatedBy: req.user.email },
   });
 
   res.json({
     message: 'Product updated successfully',
-    product
+    product,
   });
 };
 
 const deleteProduct = (req, res, next) => {
   if (!req.user || req.user.role !== 'admin') {
-    return next(new ApiError('Admin role required', 403));
+    return next(new ApiError('Admin access required', 403));
   }
 
   const productIndex = store.products.findIndex((p) => p.id === Number(req.params.id));
@@ -167,12 +167,12 @@ const deleteProduct = (req, res, next) => {
   logEvent({
     type: 'products.delete',
     summary: `Producto eliminado: ${deleted.name}`,
-    details: { productId: deleted.id, deletedBy: req.user.email }
+    details: { productId: deleted.id, deletedBy: req.user.email },
   });
 
   res.json({
     message: 'Product deleted successfully',
-    product: deleted
+    product: deleted,
   });
 };
 
@@ -181,5 +181,5 @@ module.exports = {
   getProduct,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };

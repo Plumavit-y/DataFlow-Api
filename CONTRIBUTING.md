@@ -3,10 +3,12 @@
 Thank you for considering contributing! Please follow these guidelines:
 
 ## Issues
+
 - Search for existing issues before opening a new one.
 - Provide clear, descriptive titles and context.
 
 ## Pull Requests
+
 - Fork the repo and create a feature branch.
 - Write clear commit messages.
 - Add/modify tests as needed.
@@ -14,10 +16,12 @@ Thank you for considering contributing! Please follow these guidelines:
 - Describe your changes in the PR.
 
 ## Code Style
+
 - Use consistent formatting (see existing code).
 - Prefer descriptive variable and function names.
 
 ## Testing
+
 - Use Jest and Supertest for backend tests.
 - Place tests in `__tests__/`.
 

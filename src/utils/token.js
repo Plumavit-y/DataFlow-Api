@@ -1,18 +1,19 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+const { secret: JWT_SECRET, expiresIn } = config.jwt;
 
 const createToken = (user) => {
   const payload = {
     id: user.id,
     email: user.email,
-    role: user.role
+    role: user.role,
   };
 
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn });
 };
 
 module.exports = {
   createToken,
-  JWT_SECRET
+  JWT_SECRET,
 };

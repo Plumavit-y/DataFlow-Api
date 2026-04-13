@@ -10,17 +10,17 @@ const getStats = (req, res) => {
   logEvent({
     type: 'stats.view',
     summary: `Estadísticas consultadas por ${req.user.email}`,
-    details: { totalOrders, totalSpent }
+    details: { totalOrders, totalSpent },
   });
 
   res.json({
     totalSpent: totalSpent.toFixed(2),
     totalOrders,
     avgOrderValue: avgOrderValue.toFixed(2),
-    recentOrders: userOrders.slice(-5).reverse()
+    recentOrders: userOrders.slice(-5).reverse(),
   });
 };
 
 module.exports = {
-  getStats
+  getStats,
 };

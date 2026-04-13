@@ -17,7 +17,7 @@ describe('Product endpoints', () => {
   it('allows admin to create a product', async () => {
     const loginRes = await request(app).post('/api/auth/login').send({
       email: 'admin@portfolio.dev',
-      password: 'Admin123!'
+      password: 'Admin123!',
     });
 
     expect(loginRes.statusCode).toBe(200);
@@ -27,7 +27,7 @@ describe('Product endpoints', () => {
       name: 'Portfolio Mug',
       price: 15.5,
       category: 'Merch',
-      stock: 40
+      stock: 40,
     };
 
     const res = await request(app)
@@ -38,7 +38,7 @@ describe('Product endpoints', () => {
     expect(res.statusCode).toBe(201);
     expect(res.body.product).toMatchObject({
       name: 'Portfolio Mug',
-      category: 'Merch'
+      category: 'Merch',
     });
   });
 });

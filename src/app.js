@@ -60,15 +60,17 @@ const apiLimiter = rateLimit({
     const ip = req.ip || req.connection.remoteAddress;
     return ip === '::1' || ip === '127.0.0.1' || ip === '::ffff:127.0.0.1';
   },
-  message: { error: 'Too many requests, please try again later.' }
+  message: { error: 'Too many requests, please try again later.' },
 });
 
 const app = express();
 
 // Middlewares
-app.use(helmet({
-  contentSecurityPolicy: false, // Permitir scripts inline para el dashboard de demo
-}));
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // Permitir scripts inline para el dashboard de demo
+  })
+);
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
@@ -136,7 +138,7 @@ app.get('/api/docs', (req, res) => {
     version: '1.0.0',
     description: 'Complete REST API for portfolio demonstration',
     baseUrl: 'http://localhost:3000',
-    endpoints
+    endpoints,
   });
 });
 
@@ -148,7 +150,9 @@ app.get('/api/export/logs', (req, res) => {
   if (format === 'json') {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Content-Disposition', `attachment; filename="activity-log-${Date.now()}.json"`);
-    res.send(JSON.stringify({ exported: new Date().toISOString(), count: events.length, events }, null, 2));
+    res.send(
+      JSON.stringify({ exported: new Date().toISOString(), count: events.length, events }, null, 2)
+    );
   } else if (format === 'csv') {
     const csv = convertToCSV(events);
     res.setHeader('Content-Type', 'text/csv');
@@ -166,14 +170,14 @@ function convertToCSV(events) {
   }
 
   const headers = ['timestamp', 'type', 'summary', 'details'];
-  const rows = events.map(event => [
+  const rows = events.map((event) => [
     event.timestamp,
     event.type,
     `"${(event.summary || '').replace(/"/g, '""')}"`,
-    `"${JSON.stringify(event.details || {}).replace(/"/g, '""')}"`
+    `"${JSON.stringify(event.details || {}).replace(/"/g, '""')}"`,
   ]);
 
-  return [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  return [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
 }
 
 app.use(notFoundHandler);

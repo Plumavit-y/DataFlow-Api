@@ -5,7 +5,7 @@ const {
   getProduct,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 } = require('../controllers/productController');
 const { authenticateToken, optionalAuth } = require('../middleware/auth');
 

@@ -7,7 +7,7 @@ const createInitialProducts = () => [
     price: 129.99,
     category: 'Electronics',
     stock: 50,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const createInitialProducts = () => [
     price: 299.99,
     category: 'Electronics',
     stock: 30,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   },
   {
     id: 3,
@@ -23,8 +23,8 @@ const createInitialProducts = () => [
     price: 89.99,
     category: 'Sports',
     stock: 100,
-    createdAt: new Date().toISOString()
-  }
+    createdAt: new Date().toISOString(),
+  },
 ];
 
 const createDefaultAdmin = () => ({
@@ -33,7 +33,7 @@ const createDefaultAdmin = () => ({
   name: 'Portfolio Admin',
   password: bcrypt.hashSync('Admin123!', 10),
   role: 'admin',
-  createdAt: new Date().toISOString()
+  createdAt: new Date().toISOString(),
 });
 
 const store = {
@@ -41,7 +41,7 @@ const store = {
   products: [],
   orders: [],
   nextUserId: 1,
-  nextOrderId: 1
+  nextOrderId: 1,
 };
 
 const resetStore = () => {
@@ -61,5 +61,5 @@ module.exports = {
   store,
   getNextUserId,
   getNextOrderId,
-  resetStore
+  resetStore,
 };

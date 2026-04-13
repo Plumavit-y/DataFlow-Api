@@ -1,282 +1,313 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>Log in to DataFlow</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --bg-base: #fafafa;
-            --bg-card: #ffffff;
-            --text-main: #111827;
-            --text-muted: #6b7280;
-            --border: #e5e7eb;
-            --primary: #000000;
-            --primary-hover: #374151;
-            --focus-ring: rgba(0, 0, 0, 0.1);
-            --error: #ef4444;
-        }
+      :root {
+        --bg-base: #fafafa;
+        --bg-card: #ffffff;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --border: #e5e7eb;
+        --primary: #000000;
+        --primary-hover: #374151;
+        --focus-ring: rgba(0, 0, 0, 0.1);
+        --error: #ef4444;
+      }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family:
+          'Inter',
+          -apple-system,
+          sans-serif;
+        background-color: var(--bg-base);
+        color: var(--text-main);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
 
-        .login-container {
-            width: 100%;
-            max-width: 380px;
-            padding: 24px;
-            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+      .login-container {
+        width: 100%;
+        max-width: 380px;
+        padding: 24px;
+        animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-        .brand {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+      .brand {
+        text-align: center;
+        margin-bottom: 32px;
+      }
 
-        .brand-logo {
-            width: 48px;
-            height: 48px;
-            background: var(--primary);
-            color: white;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 20px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            letter-spacing: -1px;
-        }
+      .brand-logo {
+        width: 48px;
+        height: 48px;
+        background: var(--primary);
+        color: white;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        letter-spacing: -1px;
+      }
 
-        .brand h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 0 0 8px;
-            letter-spacing: -0.025em;
-        }
+      .brand h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 8px;
+        letter-spacing: -0.025em;
+      }
 
-        .brand p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin: 0;
-        }
+      .brand p {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin: 0;
+      }
 
-        .login-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 32px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-        }
+      .login-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+      .form-group {
+        margin-bottom: 20px;
+      }
 
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-main);
+      }
 
-        .form-control {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 14px;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            background: var(--bg-base);
-        }
+      .form-control {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 14px;
+        transition: all 0.2s;
+        box-sizing: border-box;
+        background: var(--bg-base);
+      }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: var(--bg-card);
-            box-shadow: 0 0 0 3px var(--focus-ring);
-        }
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: var(--bg-card);
+        box-shadow: 0 0 0 3px var(--focus-ring);
+      }
 
-        .btn-submit {
-            width: 100%;
-            padding: 10px 16px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
+      .btn-submit {
+        width: 100%;
+        padding: 10px 16px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
 
-        .btn-submit:hover {
-            background: var(--primary-hover);
-        }
+      .btn-submit:hover {
+        background: var(--primary-hover);
+      }
 
-        .btn-submit:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
+      .btn-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
 
-        .error-message {
-            color: var(--error);
-            font-size: 13px;
-            margin-bottom: 16px;
-            text-align: center;
-            display: none;
-            background: #fef2f2;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #fecaca;
-        }
+      .error-message {
+        color: var(--error);
+        font-size: 13px;
+        margin-bottom: 16px;
+        text-align: center;
+        display: none;
+        background: #fef2f2;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #fecaca;
+      }
 
-        .error-message.visible {
-            display: block;
-        }
+      .error-message.visible {
+        display: block;
+      }
 
-        .demo-credentials {
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
+      .demo-credentials {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
 
-        .demo-credentials p {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin: 0 0 12px;
-        }
+      .demo-credentials p {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin: 0 0 12px;
+      }
 
-        .demo-credentials code {
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 12px;
-            background: var(--bg-base);
-            border: 1px solid var(--border);
-            padding: 4px 8px;
-            border-radius: 4px;
-            color: var(--text-main);
-            display: inline-block;
-            margin-bottom: 4px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
+      .demo-credentials code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+        background: var(--bg-base);
+        border: 1px solid var(--border);
+        padding: 4px 8px;
+        border-radius: 4px;
+        color: var(--text-main);
+        display: inline-block;
+        margin-bottom: 4px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
 
-        .demo-credentials code:hover {
-            background: #f3f4f6;
-        }
+      .demo-credentials code:hover {
+        background: #f3f4f6;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="login-container">
-        <div class="brand">
-            <div class="brand-logo">DF</div>
-            <h1>Log in to DataFlow</h1>
-            <p>Welcome back! Please enter your details.</p>
-        </div>
+      <div class="brand">
+        <div class="brand-logo">DF</div>
+        <h1>Log in to DataFlow</h1>
+        <p>Welcome back! Please enter your details.</p>
+      </div>
 
-        <div class="login-card">
-            <div id="error-box" class="error-message">Invalid credentials</div>
-            
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" placeholder="name@company.com" required autocomplete="email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
-                </div>
-                
-                <button type="submit" id="submit-btn" class="btn-submit">
-                    Sign in
-                </button>
-            </form>
+      <div class="login-card">
+        <div id="error-box" class="error-message">Invalid credentials</div>
 
-            <div class="demo-credentials">
-                <p>Click to copy demo credentials</p>
-                <code onclick="copyToForm('email', 'admin@portfolio.dev')">admin@portfolio.dev</code><br>
-                <code onclick="copyToForm('password', 'Admin123!')">Admin123!</code>
-            </div>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="name@company.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="••••••••"
+              required
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn-submit">Sign in</button>
+        </form>
+
+        <div class="demo-credentials">
+          <p>Click to copy demo credentials</p>
+          <code onclick="copyToForm('email', 'admin@portfolio.dev')">admin@portfolio.dev</code
+          ><br />
+          <code onclick="copyToForm('password', 'Admin123!')">Admin123!</code>
         </div>
+      </div>
     </div>
 
     <script>
-        // Check if already logged in
-        if (localStorage.getItem('df_token')) {
+      // Check if already logged in
+      if (localStorage.getItem('df_token')) {
+        window.location.href = '/';
+      }
+
+      function copyToForm(fieldId, value) {
+        document.getElementById(fieldId).value = value;
+      }
+
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        const errorBox = document.getElementById('error-box');
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        btn.disabled = true;
+        btn.innerHTML =
+          '<svg class="spinner" viewBox="0 0 24 24" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="32" stroke-linecap="round" style="opacity:0.2"></circle><path d="M12 2a10 10 0 0 1 10 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path></svg> Signing in...';
+        errorBox.classList.remove('visible');
+
+        try {
+          const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.error || 'Login failed');
+          }
+
+          localStorage.setItem('df_token', data.token);
+          // Pequeño delay para que se vea la animación (da sensación de "trabajo")
+          setTimeout(() => {
             window.location.href = '/';
+          }, 500);
+        } catch (err) {
+          errorBox.textContent = err.message;
+          errorBox.classList.add('visible');
+          btn.disabled = false;
+          btn.textContent = 'Sign in';
         }
-
-        function copyToForm(fieldId, value) {
-            document.getElementById(fieldId).value = value;
-        }
-
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            const errorBox = document.getElementById('error-box');
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            btn.disabled = true;
-            btn.innerHTML = '<svg class="spinner" viewBox="0 0 24 24" style="width: 16px; height: 16px; animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="32" stroke-linecap="round" style="opacity:0.2"></circle><path d="M12 2a10 10 0 0 1 10 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path></svg> Signing in...';
-            errorBox.classList.remove('visible');
-
-            try {
-                const res = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const data = await res.json();
-
-                if (!res.ok) {
-                    throw new Error(data.error || 'Login failed');
-                }
-
-                localStorage.setItem('df_token', data.token);
-                // Pequeño delay para que se vea la animación (da sensación de "trabajo")
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 500);
-
-            } catch (err) {
-                errorBox.textContent = err.message;
-                errorBox.classList.add('visible');
-                btn.disabled = false;
-                btn.textContent = 'Sign in';
-            }
-        });
+      });
     </script>
     <style>
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     </style>
-</body>
+  </body>
 </html>

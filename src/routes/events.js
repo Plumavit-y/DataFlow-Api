@@ -21,7 +21,7 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   res.json({
-    events: getEvents()
+    events: getEvents(),
   });
 });
 

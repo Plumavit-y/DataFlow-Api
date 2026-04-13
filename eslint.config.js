@@ -1,0 +1,71 @@
+const nodePlugin = require('eslint-plugin-node');
+const importPlugin = require('eslint-plugin-import');
+
+module.exports = [
+  {
+    files: ['**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
+        exports: 'readonly',
+        global: 'readonly',
+        Buffer: 'readonly',
+        jest: 'readonly',
+        test: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+      },
+    },
+    plugins: {
+      node: nodePlugin,
+      import: importPlugin,
+    },
+    rules: {
+      'no-console': 'off',
+      'no-undef': 'error',
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-process-exit': 'off',
+      'no-path-concat': 'error',
+      'node/no-missing-require': 'off',
+      'node/no-unpublished-require': 'off',
+      eqeqeq: ['error', 'always'],
+      'prefer-arrow-callback': ['error', { allowNamedFunctions: true }],
+      'prefer-const': 'error',
+      'require-await': 'off',
+      'import/order': 'off',
+      'import/no-unresolved': 'off',
+    },
+  },
+  {
+    files: ['**/*.test.js', '__tests__/**/*.js'],
+    languageOptions: {
+      globals: {
+        jest: 'readonly',
+        test: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+      },
+    },
+  },
+];

@@ -4,23 +4,23 @@
   --primary-dark: #4338ca;
   --primary-light: #818cf8;
   --indigo-50: #eef2ff;
-  
+
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  
+
   --slate-50: #f8fafc;
   --slate-100: #f1f5f9;
   --slate-200: #e2e8f0;
   --slate-700: #334155;
   --slate-800: #1e293b;
   --slate-900: #0f172a;
-  
+
   --border: #e2e8f0;
   --card-bg: #ffffff;
   --text-main: #0f172a;
   --text-muted: #64748b;
-  
+
   --sidebar-width: 260px;
   --header-height: 80px;
   --radius: 12px;
@@ -35,7 +35,11 @@
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
   background-color: var(--slate-50);
   color: var(--text-main);
   line-height: 1.5;
@@ -49,8 +53,14 @@ code {
 
 /* Smooth entry animation for the whole app */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .app-container {
@@ -61,16 +71,20 @@ code {
 
 /* More refined shadows (Vercel style) */
 :root {
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow: 0 8px 30px rgba(0,0,0,0.04);
-  --shadow-md: 0 8px 30px rgba(0,0,0,0.12);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.card, .metric-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.card,
+.metric-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.card:hover, .metric-card:hover {
+.card:hover,
+.metric-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
@@ -169,9 +183,18 @@ code {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Main Content */
@@ -365,11 +388,26 @@ code {
   border-radius: 4px;
 }
 
-.type-auth { background: #e0e7ff; color: #4338ca; }
-.type-product { background: #fef3c7; color: #92400e; }
-.type-order { background: #d1fae5; color: #065f46; }
-.type-health { background: #dcfce7; color: #15803d; }
-.type-other { background: #f1f5f9; color: #475569; }
+.type-auth {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+.type-product {
+  background: #fef3c7;
+  color: #92400e;
+}
+.type-order {
+  background: #d1fae5;
+  color: #065f46;
+}
+.type-health {
+  background: #dcfce7;
+  color: #15803d;
+}
+.type-other {
+  background: #f1f5f9;
+  color: #475569;
+}
 
 .event-time {
   font-size: 11px;
@@ -451,7 +489,9 @@ code {
   font-weight: 600;
 }
 
-.mt-4 { margin-top: 1rem; }
+.mt-4 {
+  margin-top: 1rem;
+}
 
 .empty-state {
   padding: 60px 40px;
@@ -484,9 +524,21 @@ code {
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .sidebar { width: 80px; }
-  .logo-text, .nav-item span:not(.icon), .status-text { display: none; }
-  .main-content { margin-left: 80px; }
-  .metrics-grid { grid-template-columns: 1fr; }
-  .content-grid { grid-template-columns: 1fr; }
+  .sidebar {
+    width: 80px;
+  }
+  .logo-text,
+  .nav-item span:not(.icon),
+  .status-text {
+    display: none;
+  }
+  .main-content {
+    margin-left: 80px;
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
 }

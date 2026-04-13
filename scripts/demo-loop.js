@@ -30,13 +30,9 @@ const handleRequestError = async (error, context) => {
 
 const registerDemoUser = async () => {
   try {
-    await axios.post(
-      `${API_URL}/api/auth/register`,
-      DEMO_USER,
-      {
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    await axios.post(`${API_URL}/api/auth/register`, DEMO_USER, {
+      headers: { 'Content-Type': 'application/json' },
+    });
     log('Usuario demo registrado correctamente');
   } catch (error) {
     if (error.response && error.response.status === 409) {
@@ -53,7 +49,7 @@ const logUserIn = async () => {
     `${API_URL}/api/auth/login`,
     { email: DEMO_USER.email, password: DEMO_USER.password },
     {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
     }
   );
   return response.data.token;
@@ -63,7 +59,7 @@ const ensureTokens = async () => {
   while (true) {
     try {
       const adminLogin = await axios.post(`${API_URL}/api/auth/login`, ADMIN_CREDENTIALS, {
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       });
 
       await registerDemoUser();
@@ -71,7 +67,7 @@ const ensureTokens = async () => {
 
       return {
         adminToken: adminLogin.data.token,
-        userToken
+        userToken,
       };
     } catch (error) {
       await handleRequestError(error, 'obtención de tokens');
@@ -99,8 +95,8 @@ const createOrder = async (userToken) => {
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userToken}`
-      }
+        Authorization: `Bearer ${userToken}`,
+      },
     }
   );
 
@@ -109,14 +105,14 @@ const createOrder = async (userToken) => {
 
 const listOrders = async (userToken) => {
   const response = await axios.get(`${API_URL}/api/orders`, {
-    headers: { Authorization: `Bearer ${userToken}` }
+    headers: { Authorization: `Bearer ${userToken}` },
   });
   log(`Se consultaron ${response.data.count} órdenes`);
 };
 
 const viewStats = async (userToken) => {
   const response = await axios.get(`${API_URL}/api/stats`, {
-    headers: { Authorization: `Bearer ${userToken}` }
+    headers: { Authorization: `Bearer ${userToken}` },
   });
   log(`Stats: ${response.data.totalOrders} órdenes, gasto ${response.data.totalSpent}`);
 };
@@ -141,13 +137,13 @@ const createProduct = async (adminToken) => {
       name,
       price: Number((10 + Math.random() * 40).toFixed(2)),
       category: 'Demo',
-      stock: 20
+      stock: 20,
     },
     {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${adminToken}`
-      }
+        Authorization: `Bearer ${adminToken}`,
+      },
     }
   );
 
@@ -165,7 +161,7 @@ const startLoop = async () => {
       () => listOrders(userToken),
       () => viewStats(userToken),
       () => healthCheck(),
-      () => createProduct(adminToken)
+      () => createProduct(adminToken),
     ];
 
     log('Demo loop iniciado');

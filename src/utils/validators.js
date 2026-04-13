@@ -4,7 +4,28 @@ const validateEmail = (email) => {
 };
 
 const validatePassword = (password) => {
-  return typeof password === 'string' && password.length >= 6;
+  if (typeof password !== 'string' || password.length < 6) {
+    return false;
+  }
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  return hasUpperCase && hasLowerCase && hasNumber;
+};
+
+const getPasswordStrength = (password) => {
+  if (!password || typeof password !== 'string') {
+    return { score: 0, level: 'empty' };
+  }
+  let score = 0;
+  if (password.length >= 6) score += 1;
+  if (password.length >= 8) score += 1;
+  if (/[A-Z]/.test(password)) score += 1;
+  if (/[a-z]/.test(password)) score += 1;
+  if (/[0-9]/.test(password)) score += 1;
+  if (/[^A-Za-z0-9]/.test(password)) score += 1;
+  const levels = ['very-weak', 'weak', 'fair', 'medium', 'strong', 'very-strong'];
+  return { score, level: levels[Math.min(score, levels.length - 1)] };
 };
 
 const validateProductPayload = ({ name, price, category }) => {
@@ -43,17 +64,13 @@ const validateOrderPayload = (items) => {
       return { valid: false, message: 'Each item must include a valid productId' };
     }
 
-    if (
-      Number.isNaN(parsedQuantity) ||
-      !Number.isInteger(parsedQuantity) ||
-      parsedQuantity <= 0
-    ) {
+    if (Number.isNaN(parsedQuantity) || !Number.isInteger(parsedQuantity) || parsedQuantity <= 0) {
       return { valid: false, message: 'Each item must include a positive integer quantity' };
     }
 
     sanitizedItems.push({
       productId: parsedProductId,
-      quantity: parsedQuantity
+      quantity: parsedQuantity,
     });
   }
 
@@ -63,6 +80,7 @@ const validateOrderPayload = (items) => {
 module.exports = {
   validateEmail,
   validatePassword,
+  getPasswordStrength,
   validateProductPayload,
-  validateOrderPayload
+  validateOrderPayload,
 };

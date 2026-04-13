@@ -29,7 +29,7 @@ const createOrder = (req, res, next) => {
       name: product.name,
       price: product.price,
       quantity: item.quantity,
-      subtotal
+      subtotal,
     });
 
     total += subtotal;
@@ -42,7 +42,7 @@ const createOrder = (req, res, next) => {
     items: orderItems,
     total,
     status: 'pending',
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
 
   store.orders.push(order);
@@ -50,12 +50,12 @@ const createOrder = (req, res, next) => {
   logEvent({
     type: 'orders.create',
     summary: `Nueva orden #${order.id} por ${req.user.email}`,
-    details: { userId: req.user.id, total }
+    details: { userId: req.user.id, total },
   });
 
   res.status(201).json({
     message: 'Order created successfully',
-    order
+    order,
   });
 };
 
@@ -65,12 +65,12 @@ const listOrders = (req, res) => {
   logEvent({
     type: 'orders.list',
     summary: `Órdenes listadas para ${req.user.email}`,
-    details: { count: userOrders.length }
+    details: { count: userOrders.length },
   });
 
   res.json({
     count: userOrders.length,
-    orders: userOrders
+    orders: userOrders,
   });
 };
 
@@ -86,7 +86,7 @@ const getOrder = (req, res, next) => {
   logEvent({
     type: 'orders.get',
     summary: `Orden consultada #${order.id}`,
-    details: { userId: req.user.id, orderId: order.id }
+    details: { userId: req.user.id, orderId: order.id },
   });
 
   res.json(order);
@@ -95,5 +95,5 @@ const getOrder = (req, res, next) => {
 module.exports = {
   createOrder,
   listOrders,
-  getOrder
+  getOrder,
 };

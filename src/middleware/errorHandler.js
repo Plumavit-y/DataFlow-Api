@@ -1,7 +1,7 @@
 const notFoundHandler = (req, res) => {
-  res.status(404).json({ 
+  res.status(404).json({
     error: 'Route not found',
-    path: req.originalUrl
+    path: req.originalUrl,
   });
 };
 
@@ -11,18 +11,15 @@ const errorHandler = (err, req, res, next) => {
   }
 
   const status = err.status && Number.isInteger(err.status) ? err.status : 500;
-  const isDevelopment = process.env.NODE_ENV !== 'production';
 
-  console.error(`[${new Date().toISOString()}] ${err.stack || err.message}`);
+  console.error(`[${new Date().toISOString()}] ${err.name}: ${err.message}`);
 
   res.status(status).json({
     error: err.message || 'Internal server error',
-    ...(isDevelopment && { stack: err.stack }),
-    status
   });
 };
 
 module.exports = {
   notFoundHandler,
-  errorHandler
+  errorHandler,
 };

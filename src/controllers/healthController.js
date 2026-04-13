@@ -8,8 +8,8 @@ const getHealth = (req, res) => {
     details: {
       users: store.users.length,
       products: store.products.length,
-      orders: store.orders.length
-    }
+      orders: store.orders.length,
+    },
   });
 
   res.json({
@@ -19,11 +19,11 @@ const getHealth = (req, res) => {
     database: {
       users: store.users.length,
       products: store.products.length,
-      orders: store.orders.length
-    }
+      orders: store.orders.length,
+    },
   });
 };
 
 module.exports = {
-  getHealth
+  getHealth,
 };

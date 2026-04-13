@@ -1,113 +1,185 @@
-# 🚀 DataFlow API | Modern REST Backend
+# DataFlow API | REST API Profesional
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen.svg)](https://nodejs.org/)
-[![Express](https://img.shields.io/badge/framework-express-blue.svg)](https://expressjs.com/)
-[![Swagger Docs](https://img.shields.io/badge/docs-swagger-indigo.svg)](http://localhost:3000/api-docs)
+[![Node.js](https://img.shields.io/badge/node-18%2B-brightgreen.svg)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/express-4.x-blue.svg)](https://expressjs.com/)
+[![JWT](https://img.shields.io/badge/auth-JWT-yellowgreen.svg)](https://jwt.io/)
+[![Testing](https://img.shields.io/badge/testing-Jest-red.svg)](https://jestjs.io/)
+[![CI/CD](https://img.shields.io/badge/CI-CD-GitHub%20Actions-blue.svg)](https://github.com/features/actions)
+[![Docker](https://img.shields.io/badge/deploy-Docker-blue.svg)](https://docker.com/)
 
-**DataFlow API** es una solución robusta y modular diseñada para demostrar estándares de ingeniería de software en un entorno real. Este proyecto no es solo un servidor; es una exhibición de **mejores prácticas** en seguridad, documentación y experiencia de usuario.
+REST API construída con estándares de producción. Incluye autenticación JWT, control de acceso por roles, documentación Swagger, tests con Jest y Docker para deployment.
 
-[**Explorar Dashboard en vivo**](http://localhost:3000) | [**Ver Documentación API**](http://localhost:3000/api-docs)
-
----
-
-## ✨ Características Principales
-
-- 🔐 **Seguridad de Grado Industrial:** Implementación de `helmet`, `cors` y `express-rate-limit`.
-- 📚 **Documentación Interactiva:** Swagger UI totalmente integrado para probar endpoints en tiempo real.
-- 📊 **Dashboard SaaS:** Panel de monitoreo moderno construido con Vanilla JS/CSS (Inter font, Glassmorphism).
-- 🔑 **Autenticación JWT:** Flujo completo de registro, login y protección de rutas por roles (`admin`/`user`).
-- 🛠️ **Arquitectura Limpia:** Separación clara entre Rutas, Controladores, Middlewares y Utilidades.
-- 📝 **Logging Profesional:** Integración de `morgan` para trazabilidad completa de peticiones.
+[**Dashboard**](http://localhost:3000) | [**Documentación API**](http://localhost:3000/api-docs)
 
 ---
 
-## 🛠️ Tech Stack
+## Por qué este proyecto?
 
-- **Backend:** Node.js, Express.js
-- **Seguridad:** JSON Web Tokens (JWT), BcryptJS, Helmet
-- **Documentación:** Swagger (OpenAPI 3.0)
-- **Frontend:** Vanilla HTML5, CSS3 (Modern SaaS UI), JavaScript ES6+
-- **Testing:** Jest, Supertest
+Quería crear algo que sirviera como demo técnica real y no solo un ejemplo básico. Acá hay:
 
----
+- Autenticación con JWT funcionando (no csak token, con verify y refresh)
+- Roles de usuario (admin vs user)
+- API documentada con Swagger/OpenAPI
+- Panel de monitoreo en tiempo real
+- Tests con Jest que pasan
+- CI/CD con GitHub Actions
+- Docker multistage para producción
 
-## 🚀 Instalación y Uso
-
-1. **Clona el repositorio:**
-   ```bash
-   git clone https://github.com/Plumavit-y/DataFlow-Api.git
-   cd DataFlow-Api
-   cp .env.example .env # Configura tus variables
-   npm install
-   ```
-
-2. **Ejecuta en desarrollo:**
-   ```bash
-   npm run dev
-   ```
-
-3. **Ver el Proyecto:**
-   - **Dashboard:** [http://localhost:3000](http://localhost:3000)
-   - **Swagger UI:** [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
-
-4. **Simular Tráfico (Demo Mode):**
-   ```bash
-   npm run demo-loop
-   ```
-   *Este comando genera eventos automáticos para ver el dashboard en acción.*
-
-5. **Ejecutar tests:**
-   ```bash
-   npm test
-   ```
+Básicamente lo que tendría un side project o app real de tamaño pequeño.
 
 ---
 
-## 📂 Estructura del Proyecto
+## Stack Técnico
 
-```text
-├── public/              # Dashboard UI (Modern SaaS style)
+| Categoría | Tecnología                 |
+| --------- | -------------------------- |
+| Runtime   | Node.js 18+                |
+| Framework | Express.js 4.x             |
+| Auth      | JWT + bcrypt               |
+| Security  | helmet, cors, rate-limit   |
+| Docs      | swagger-jsdoc, OpenAPI 3.0 |
+| Tests     | Jest + Supertest           |
+| Lint      | ESLint + Prettier          |
+| Deploy    | Docker + docker-compose    |
+
+---
+
+## Empezar
+
+```bash
+# Instalación
+git clone https://github.com/Plumavit-y/DataFlow-Api.git
+cd DataFlow-Api
+cp .env.example .env
+npm install
+
+# Arrancar en desarrollo
+npm run dev
+
+# Tests
+npm test
+
+# Lint y format
+npm run lint
+npm run format
+```
+
+**En el navegador:**
+
+- Dashboard: http://localhost:3000
+- Docs API: http://localhost:3000/api-docs
+- Health: http://localhost:3000/api/health
+
+---
+
+## Demo Mode
+
+Para ver el dashboard con actividad:
+
+```bash
+npm run demo-loop
+```
+
+Esto genera requests automáticos para ver cómo se ve el panel en vivo.
+
+---
+
+## Estructura
+
+```
+dataflow-api/
+├── .github/workflows/     # CI/CD
+├── public/                # Dashboard
+│   ├── index.html
+│   ├── login.html
+│   └── dashboard.js
 ├── src/
-│   ├── app.js           # Configuración central (Helmet, Morgan, Swagger)
+│   ├── app.js             # Config Express
+│   ├── config/           # Variables de entorno
 │   ├── controllers/     # Lógica de negocio
-│   ├── middleware/      # Auth, Error Handler, Security
-│   ├── routes/          # Definición de endpoints + Swagger JSDoc
-│   └── utils/           # Validadores y helpers
-├── __tests__/           # Pruebas de integración
-├── docs/                # Documentación extendida (API, arquitectura, ejemplos, testing, deployment, FAQ)
-├── .env.example         # Variables de entorno de ejemplo
-├── LICENSE              # Licencia MIT
-├── CONTRIBUTING.md      # Guía para contribuir
+│   ├── data/             # Storage in-memory
+│   ├── middleware/      # Auth, errores
+│   ├── routes/          # Endpoints
+│   └── utils/           # Validaciones
+├── __tests__/            # Tests
+├── docs/                 # Docs tambahan
+├── server.js            # Entry point
+└── package.json
 ```
 
 ---
 
-## 🔐 Credenciales de Prueba (Demo)
+## Endpoints Principales
 
-| Rol | Email | Password |
-| --- | --- | --- |
-| **Admin** | `admin@portfolio.dev` | `Admin123!` |
-| **User** | `user@portfolio.dev` | `User123!` |
+| Endpoint             | Método | Auth    | Descripción         |
+| -------------------- | ------ | ------- | ------------------- |
+| `/api/auth/register` | POST   | Público | Registrar usuario   |
+| `/api/auth/login`    | POST   | Público | Login, retorna JWT  |
+| `/api/auth/me`       | GET    | Bearer  | Perfil del usuario  |
+| `/api/products`      | GET    | Público | Listar productos    |
+| `/api/products`      | POST   | Admin   | Crear producto      |
+| `/api/products/:id`  | PUT    | Admin   | Actualizar          |
+| `/api/products/:id`  | DELETE | Admin   | Eliminar            |
+| `/api/orders`        | POST   | Bearer  | Crear orden         |
+| `/api/orders`        | GET    | Bearer  | Ver mis órdenes     |
+| `/api/stats`         | GET    | Bearer  | Stats del dashboard |
+| `/api/health`        | GET    | Público | Health check        |
 
 ---
 
-## 📚 Documentación Extendida
+## Credenciales de Prueba
 
-- [API Reference](docs/api.md)
+| Rol   | Email                 | Password    |
+| ----- | --------------------- | ----------- |
+| Admin | `admin@portfolio.dev` | `Admin123!` |
+| User  | `user@portfolio.dev`  | `User123!`  |
+
+---
+
+## Documentación Adicional
+
+- [Referencia API](docs/api.md)
 - [Arquitectura](docs/architecture.md)
-- [Ejemplos de Uso](docs/usage-examples.md)
 - [Testing](docs/testing.md)
 - [Deployment](docs/deployment.md)
-- [FAQ](docs/faq.md)
-- [Guía Demo](docs/demo-walkthrough.md)
 
 ---
 
-## 📜 Licencia
+## Calidad de Código
 
-Este proyecto está bajo la Licencia MIT. Siéntete libre de usarlo como base para tus propios proyectos.
+```bash
+# Todo junto
+npm run lint && npm run format && npm test
+```
+
+CI corre en cada push y PR:
+
+- ESLint + Prettier check
+- Tests Jest
+- Security audit
 
 ---
 
-Desarrollado con ❤️ por **Alex Silva** para su Portafolio Profesional.
+## Deploy con Docker
+
+```bash
+# Build producción
+docker build -t dataflow-api .
+
+# Run
+docker run -p 3000:3000 dataflow-api
+
+# O con docker-compose
+docker-compose up -d
+```
+
+---
+
+## Licencia
+
+MIT - libre de usar.
+
+---
+
+Hecho por **Alex Silva** para portafolio técnico.

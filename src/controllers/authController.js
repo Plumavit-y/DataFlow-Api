@@ -17,7 +17,12 @@ const register = async (req, res, next) => {
   }
 
   if (!validatePassword(password)) {
-    return next(new ApiError('Password must be at least 6 characters', 400));
+    return next(
+      new ApiError(
+        'Password must be at least 6 characters with uppercase, lowercase, and number',
+        400
+      )
+    );
   }
 
   const existingUser = store.users.find((u) => u.email === email);
@@ -33,7 +38,7 @@ const register = async (req, res, next) => {
     name,
     password: hashedPassword,
     role: 'user',
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
 
   store.users.push(user);
@@ -41,7 +46,7 @@ const register = async (req, res, next) => {
   logEvent({
     type: 'auth.register',
     summary: `Nuevo registro: ${email}`,
-    details: { userId: user.id, role: user.role }
+    details: { userId: user.id, role: user.role },
   });
 
   const token = createToken(user);
@@ -49,7 +54,7 @@ const register = async (req, res, next) => {
   res.status(201).json({
     message: 'User registered successfully',
     user: { id: user.id, email: user.email, name: user.name },
-    token
+    token,
   });
 };
 
@@ -73,7 +78,7 @@ const login = async (req, res, next) => {
   logEvent({
     type: 'auth.login',
     summary: `Login exitoso: ${email}`,
-    details: { userId: user.id, role: user.role }
+    details: { userId: user.id, role: user.role },
   });
 
   const token = createToken(user);
@@ -81,7 +86,7 @@ const login = async (req, res, next) => {
   res.json({
     message: 'Login successful',
     user: { id: user.id, email: user.email, name: user.name, role: user.role },
-    token
+    token,
   });
 };
 
@@ -96,12 +101,12 @@ const me = (req, res, next) => {
     email: user.email,
     name: user.name,
     role: user.role,
-    createdAt: user.createdAt
+    createdAt: user.createdAt,
   });
 };
 
 module.exports = {
   register,
   login,
-  me
+  me,
 };

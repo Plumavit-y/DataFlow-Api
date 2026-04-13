@@ -16,7 +16,7 @@ const logEvent = ({ type, summary, details = {} }) => {
     type,
     summary,
     details,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
 
   events.unshift(event);
@@ -29,5 +29,5 @@ const getEvents = () => [...events];
 
 module.exports = {
   logEvent,
-  getEvents
+  getEvents,
 };
